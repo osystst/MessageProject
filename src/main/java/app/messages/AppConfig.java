@@ -10,7 +10,7 @@ public class AppConfig {
 
   @Bean
   public MessageRepository messageRepository() {
-    return new MessageRepository();
+    return new MessageRepository(); 
   }
 
   @Bean
