@@ -28,10 +28,15 @@ public class MessageController {
   @PostMapping("")
   @ResponseBody
   public ResponseEntity<Message> saveMessage(@RequestBody MessageData data) {
+    checkSecurity();
     Message saved = messageService.save(data.getText());
     if (saved == null) {
       return ResponseEntity.status(500).build();
     }
     return ResponseEntity.ok(saved);
   }
+
+  // private void checkSecurity() throws NotAuthorizedException {
+
+  // }
 }
