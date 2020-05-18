@@ -1,16 +1,14 @@
-package app.messages;
+package app.messages.web;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import app.messages.model.Message;
+import app.messages.service.MessageService;
 
 @Controller
-@RequestMapping("/messages")
 public class MessageController {
 
   private MessageService messageService;
@@ -21,14 +19,13 @@ public class MessageController {
 
   @GetMapping("/welcome")
   public String welcome(Model model) {
-    model.addAttribute("message", "Hello, Welcome to Spring Boot");
+    model.addAttribute("message", "Hello, Welcome to Spring Boot!");
     return "welcome";
   }
 
-  @PostMapping("")
+  @PostMapping("/api/messages")
   @ResponseBody
   public ResponseEntity<Message> saveMessage(@RequestBody MessageData data) {
-    // checkSecurity();
     Message saved = messageService.save(data.getText());
     if (saved == null) {
       return ResponseEntity.status(500).build();
@@ -36,7 +33,8 @@ public class MessageController {
     return ResponseEntity.ok(saved);
   }
 
-  // private void checkSecurity() throws NotAuthorizedException {
-
-  // }
+  @GetMapping("/messages")
+  public String index() {
+    return "index";
+  }
 }

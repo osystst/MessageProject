@@ -1,6 +1,7 @@
-package app.messages;
+package app.messages.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name = "messages")
@@ -34,14 +36,20 @@ public class Message {
     this.createdDate = new Date();
   }
 
-  public Message(int id, String text, Date createdDate) {
-    this.id = id;
-    this.text = text;
-    this.createdDate = createdDate;
-  }
-
   public Integer getId() { return id;}
   public String getText() { return text; }
   public Date getCreatedDate() { return createdDate; }
-  // equals()와 hashCode()는 생략됐다
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Message message = (Message) o;
+    return Objects.equals(id, message.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 }

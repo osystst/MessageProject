@@ -1,4 +1,4 @@
-package app.messages;
+package app.messages.web;
 
 public class MessageData {
   private String text;

@@ -1,4 +1,4 @@
-package app.messages;
+package app.messages.web;
 
 import java.io.IOException;
 import java.util.Date;
@@ -16,13 +16,14 @@ public class AuditingFilter extends GenericFilterBean {
   @Override
   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
       throws IOException, ServletException {
+
+        HttpServletRequest request = (HttpServletRequest) req;
     
         long start = new Date().getTime();
         chain.doFilter(req, res);
         long elapsed = new Date().getTime() - start;
-        HttpServletRequest request = (HttpServletRequest) req;
-        logger.debug("Request[uri=" + request.getRequestURI() + ", method" + request.getMethod() + "] completed in " + elapsed + " ms");
 
+        logger.debug("Request[uri=" + request.getRequestURI() + ", method" + request.getMethod() + "] completed in " + elapsed + " ms");
   }
 
 }
